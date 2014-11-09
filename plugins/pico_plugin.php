@@ -31,8 +31,6 @@ class Pico_Plugin {
 	
 	public function after_load_content(&$file, &$content)
 	{
-		echo "Content";
-		die;
 		
 	}
 	

@@ -10,6 +10,7 @@
 class my_Plugin {
 
 private $myjob = false;
+private $username;
 	public function plugins_loaded()
 	{
 		
@@ -17,13 +18,13 @@ private $myjob = false;
 
 	public function config_loaded(&$settings)
 	{
-		
+		$this->username=$settings["username"];
 	}
 	
 	public function request_url(&$url)
 	{
 	echo "$url \n";
-		if($url == 'pico-master/jobs') {
+		if($url == 'open-job-portal/index.php/jobs') {
 		$this->myjob = true;
 		}
 	}
@@ -61,23 +62,17 @@ private $myjob = false;
 	public function after_parse_content(&$content)
 	{
 	
-
-    
-
-		
 	}
-	
-	
-	
 	
 	public function before_parse_content(&$content)
 	{
-	
-				if($this->myjob) {		
+	global $username;
+#				if($this->myjob)
+				{		
 	$content=null;
 	
-			$location = 'http://rss.springrole.com/rss/jobs.rss?userid=gh_kar2905&sub=ravi';
- $html = file_get_contents($location);
+			 $location = 'http://rss.springrole.com/rss/jobs.rss?userid='.$this->username;
+	$html = file_get_contents($location);
 
  
             
@@ -93,35 +88,32 @@ private $myjob = false;
 	}
 	if(isset($doc->entry))
 	{
+	
     $this->parseAtom($doc);
 	}
 
 }
-
-
-	 
-	
-	
-	
-		
-		
-
-	
 	}
 
 public function parseRSS($xml)
 {
-    echo "<strong>".$xml->channel->title."</strong>";
+   # echo "<strong>".$xml->channel->title."</strong>";
     $cnt = count($xml->channel->item);
 	
     for($i=0; $i<$cnt; $i++)
-    {
+		{
 	$url 	= $xml->channel->item[$i]->link;
 	$title 	= $xml->channel->item[$i]->title;
 	$desc =  $xml->channel->item[$i]->description;
- 
-#	echo '<a href="'.$url.'">'.$title.'</a>'.$desc.'</br>'.'';
-	echo '<a href="'.$url.'">'.$title.'</a>'.'</br>'.'';
+	$url1 = str_replace($this->username,$this->username."&utm_source=php-training-club&utm_medium=open-job-portal&utm_term=jobs&utm_content=job-portal&utm_campaign=open-job-portal",$url);
+	$desc1 = str_replace($this->username,$this->username."&utm_source=php-training-club&utm_medium=open-job-portal&utm_term=jobs&utm_content=job-portal&utm_campaign=open-job-portal",$desc);	
+	#$city = $xml->channel->item[$i]->city;
+	#$country = $xml->channel->item[$i]->country;
+	echo '<a href="'.$url1.'">'.$title.'</a>'.$desc1.'</br>'.'';
+   
+  # echo '<a href="'.$url.'">'.$title.'</a>'.'</br>'.'';
+  # echo '<a>$city</a>';
+
     }
 }
 
@@ -137,7 +129,7 @@ public function parseAtom($xml)
 	$title 	= $xml->entry->title;
 	$desc	=  strip_tags($xml->entry->content);
  
-	echo '<a href="'.$url.'">'.$title.'</a>'.$desc.'';
+	#echo '<a href="'.$url.'">'.$title.'</a>'.$desc.'';
     }
 }
 
@@ -172,70 +164,6 @@ public function parseAtom($xml)
 		
 	}
 	
-
-
-
-/**
- * @link http://keithdevens.com/weblog/archive/2002/Jun/03/RSSAuto-DiscoveryPHP
- */
-public function getRSSLocation($html, $location)
-{
-    if(!$html or !$location){
-        return false;
-    }else{
-        #search through the HTML, save all <link> tags
-        # and store each link's attributes in an associative array
-        preg_match_all('/<link\s+(.*?)\s*\/?>/si', $html, $matches);
-        $links = $matches[1];
-        $final_links = array();
-        $link_count = count($links);
-        for($n=0; $n<$link_count; $n++){
-            $attributes = preg_split('/\s+/s', $links[$n]);
-            foreach($attributes as $attribute){
-                $att = preg_split('/\s*=\s*/s', $attribute, 2);
-                if(isset($att[1])){
-                    $att[1] = preg_replace('/([\'"]?)(.*)\1/', '$2', $att[1]);
-                    $final_link[strtolower($att[0])] = $att[1];
-                }
-            }
-            $final_links[$n] = $final_link;
-        }
-        #now figure out which one points to the RSS file
-        for($n=0; $n<$link_count; $n++){
-            if(strtolower($final_links[$n]['rel']) == 'alternate'){
-                if(strtolower($final_links[$n]['type']) == 'application/rss+xml'){
-                    $href = $final_links[$n]['href'];
-                }
-                if(!$href and strtolower($final_links[$n]['type']) == 'text/xml'){
-                    #kludge to make the first version of this still work
-                    $href = $final_links[$n]['href'];
-                }
-                if($href){
-                    if(strstr($href, "http://") !== false){ #if it's absolute
-                        $full_url = $href;
-                    }else{ #otherwise, 'absolutize' it
-                        $url_parts = parse_url($location);
-                        #only made it work for http:// links. Any problem with this?
-                        $full_url = "http://$url_parts[host]";
-                        if(isset($url_parts['port'])){
-                            $full_url .= ":$url_parts[port]";
-                        }
-                        if($href{0} != '/'){ #it's a relative link on the domain
-                            $full_url .= dirname($url_parts['path']);
-                            if(substr($full_url, -1) != '/'){
-                                #if the last character isn't a '/', add it
-                                $full_url .= '/';
-                            }
-                        }
-                        $full_url .= $href;
-                    }
-                    return $full_url;
-                }
-            }
-        }
-        return false;
-    }
-}
 
 }
 
