@@ -109,7 +109,7 @@ public function parseRSS($xml)
 	$desc1 = str_replace($this->username,$this->username."&utm_source=php-training-club&utm_medium=open-job-portal&utm_term=jobs&utm_content=job-portal&utm_campaign=open-job-portal",$desc);	
 	#$city = $xml->channel->item[$i]->city;
 	#$country = $xml->channel->item[$i]->country;
-	echo '<a href="'.$url1.'">'.$title.'</a>'.$desc1.'</br>'.'';
+	echo '<a href="'.$url1.'">'.$title.'</a><br>'.$desc1.'</br>'.'';
     echo '<br><hr></hr></br>';
   # echo '<a href="'.$url.'">'.$title.'</a>'.'</br>'.'';
   # echo '<a>$city</a>';
