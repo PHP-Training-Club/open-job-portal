@@ -1,7 +1,15 @@
-Pico
+Open Job Portal
 ====
 
-Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ for more info.
+This is the first open project which will let you start your own job portal and start making money by just promoting your site.
+You don't have to publish job it's all automated.
 
-[![I Love Open Source](http://www.iloveopensource.io/images/logo-lightbg.png)](http://www.iloveopensource.io/projects/524c55dcca7964c617000756)
-this is the first edit.
+Just download it and upload it to your server it will start working without any configuration
+
+INSTALL INSTRUCTION:
+1. Download and unzip it
+2. Upload it to your serever
+3. Optional - Change $config['username'] = "yourusername"; // you will get this from http://springrole.com?utm_source=php-training-club&utm_medium=open-job-portal&utm_term=jobs&utm_content=job-portal&utm_campaign=open-job-portal
+4. Optional - You can change content contact.md and about.md file to show any information you want to show
+5. Then Job will be pulled from spring role and you start making money if someones resume is getting selected
+6. You have better chances to make mony becuase Springrole is paying even if resume is selected it doesn't matter whether candidate is selected.It's always win win for everyone. 
