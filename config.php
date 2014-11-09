@@ -4,7 +4,7 @@
 // Override any of the default settings below:
 $config['username'] = 'gh_kar2905';
 $config['site_title'] = 'Global Employment Center';			// Site title
-$config['theme'] = 'jobs'; 			// Set the theme (defaults to "default")
+$config['theme'] = 'job'; 			// Set the theme (defaults to "default")
 /*$config['date_format'] = 'jS M Y';		// Set the PHP date format
 $config['twig_config'] = array(			// Twig settings
 	'cache' => false,					// To enable Twig caching change this to CACHE_DIR
