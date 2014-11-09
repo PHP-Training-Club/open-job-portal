@@ -2,7 +2,7 @@
 <?php 
 
 // Override any of the default settings below:
-$config['username'] = 'gh_kar2905';
+$config['username'] = 'ln_qvipdtLvSD';
 $config['site_title'] = 'Global Employment Center';			// Site title
 $config['theme'] = 'job'; 			// Set the theme (defaults to "default")
 /*$config['date_format'] = 'jS M Y';		// Set the PHP date format
