@@ -99,7 +99,7 @@ public function parseRSS($xml)
 {
    # echo "<strong>".$xml->channel->title."</strong>";
     $cnt = count($xml->channel->item);
-	
+	echo "<div class='content'>";	
     for($i=0; $i<$cnt; $i++)
 		{
 	$url 	= $xml->channel->item[$i]->link;
@@ -115,6 +115,7 @@ public function parseRSS($xml)
   # echo '<a>$city</a>';
 
     }
+    echo "</div>";
 }
 
 public function parseAtom($xml)
